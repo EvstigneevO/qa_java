@@ -1,4 +1,6 @@
-import com.example.Animal;
+package com.example;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -9,11 +11,12 @@ import static org.junit.Assert.*;
 
 
 @RunWith(Parameterized.class)
-public class AnimalGetFoodTest {
+public class AnimalParamTest {
+    Animal animal;
     private String animalKind;
     private List<String> expectedFood;
 
-    public AnimalGetFoodTest(String animalKind, List<String> expectedFood) {
+    public AnimalParamTest(String animalKind, List<String> expectedFood) {
         this.animalKind = animalKind;
         this.expectedFood = expectedFood;
     }
@@ -27,11 +30,15 @@ public class AnimalGetFoodTest {
         };
     }
 
+    @Before
+    public void init() {
+        animal = new Animal();
+    }
+
     @Test
     public void getFoodTest() {
         List<String> actual;
         try {
-            Animal animal = new Animal();
             actual = animal.getFood(animalKind);
             assertEquals("Неверный список пищи для животного: " + animalKind, expectedFood, actual);
         } catch (Exception e) {
@@ -39,4 +46,6 @@ public class AnimalGetFoodTest {
             assertEquals("Неверный текст Exception", expectedFood, actual);
         }
     }
+
+
 }
